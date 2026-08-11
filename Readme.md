@@ -284,10 +284,6 @@ frontend layers needs to change.
 Issues and PRs are welcome. If you're proposing something bigger than a bug fix,
 open an issue first so we can talk through the approach.
 
-## 📄 License
-
-No license file is included yet — add one (MIT is a solid default for a project like
-this) before you rely on this being open source in the legal sense.
 
 ---
 
