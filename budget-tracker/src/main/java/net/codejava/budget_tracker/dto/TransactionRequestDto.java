@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class TransactionRequestDto {
-    
 
     @NotNull(message = "Data is required!")
     @PastOrPresent(message = "Data connot be in the future")
@@ -30,7 +29,7 @@ public class TransactionRequestDto {
     private String description;
 
     @NotNull(message = "Amount is required!")
-    @DecimalMin(valid= "0.01", message = "Amount must be greater than zero")
+    @DecimalMin(value= "0.01", message = "Amount must be greater than zero")
     @Digits(integer = 12, fraction = 2, message = "Amount may have at most 2 decimal places!")
     private BigDecimal amount;
     
@@ -42,98 +41,40 @@ public class TransactionRequestDto {
         return date;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory (String category) {
+        this.category = category;
+    }
+
+    public String getDescription () {
+        return description;
+    }
+
+    public void setDescription (String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
 }
