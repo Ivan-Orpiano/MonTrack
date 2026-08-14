@@ -22,10 +22,8 @@ import net.codejava.budget_tracker.model.TransactionType;
 import net.codejava.budget_tracker.service.TransactionService;
 
 
-
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.List;
+
 
 
 
@@ -66,5 +64,54 @@ public class TransactionController {
         return ResponseEntity.created(URI.create("/api/transactions/" + created.getId())).body(created);
     }
 
-        
+    @PutMapping("/{id}")
+    public ResponseEntity<TransactionResponseDto> updateTransaction(
+        @PathVariable String id, @Valid @RequestBody TransactionRequestDto dto) {
+            return ResponseEntity.ok(transactionService.updateTransaction(id,dto));
+        }
+
+
+
+
+a
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

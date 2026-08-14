@@ -20,7 +20,7 @@ public interface TransactionService {
 
     void deleteTransaction(String id);
 
-    TransactionSummaryDto getSummary(TransactionType type, String ategory, LocalDate startDate, LocalDate endDate);
+    TransactionSummaryDto getSummary(TransactionType type, String category, LocalDate startDate, LocalDate endDate);
 }
 
 
