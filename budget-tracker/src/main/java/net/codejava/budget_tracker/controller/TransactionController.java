@@ -55,7 +55,7 @@ public class TransactionController {
 
     /** GET /api/transactions/{id} */    
     @GetMapping("/{id}")
-    public ResponseEntity<List<TransactionResponseDto>> getAllTransactionById(@PathVariable String id) {
+    public ResponseEntity<TransactionResponseDto> getAllTransactionById(@PathVariable String id) {
         return ResponseEntity.ok(transactionService.getTransactionById(id));
     }
 
@@ -63,7 +63,7 @@ public class TransactionController {
     /**POST api/transactions */
     @PostMapping
     public ResponseEntity<TransactionResponseDto> createTransaction(@Valid @RequestBody TransactionRequestDto dto) {
-        TransactionReponseDto created = transactionService.createTransaction(dto);
+        TransactionResponseDto created = transactionService.createTransaction(dto);
         return ResponseEntity.created(URI.create("/api/transactions/" + created.getId())).body(created);
     }
 
