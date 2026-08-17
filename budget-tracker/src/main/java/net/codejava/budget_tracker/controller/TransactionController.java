@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.codejava.budget_tracker.dto.TransactionRequestDto;
 import net.codejava.budget_tracker.dto.TransactionResponseDto;
+import net.codejava.budget_tracker.dto.TransactionSummaryDto;
 import net.codejava.budget_tracker.model.TransactionType;
 import net.codejava.budget_tracker.service.TransactionService;
+
 
 
 import java.net.URI;
@@ -52,7 +55,7 @@ public class TransactionController {
 
     /** GET /api/transactions/{id} */    
     @GetMapping("/{id}")
-    public ResponseEntity<List<TransactionResponseDto>> getAllTransactionById(@PathVariable String id) {
+    public ResponseEntity<TransactionResponseDto> getAllTransactionById(@PathVariable String id) {
         return ResponseEntity.ok(transactionService.getTransactionById(id));
     }
 
@@ -60,10 +63,12 @@ public class TransactionController {
     /**POST api/transactions */
     @PostMapping
     public ResponseEntity<TransactionResponseDto> createTransaction(@Valid @RequestBody TransactionRequestDto dto) {
-        TransactionReponseDto created = transactionService.createTransaction(dto);
+        TransactionResponseDto created = transactionService.createTransaction(dto);
         return ResponseEntity.created(URI.create("/api/transactions/" + created.getId())).body(created);
     }
 
+
+    /** PUT /api/tansactions/{id} */
     @PutMapping("/{id}")
     public ResponseEntity<TransactionResponseDto> updateTransaction(
         @PathVariable String id, @Valid @RequestBody TransactionRequestDto dto) {
@@ -72,46 +77,20 @@ public class TransactionController {
 
 
 
+    /** DELETE /api/transactions/{id} **/
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTransaction(@PathVariable String id) {
+        transactionService.deleteTransaction(id);
+        return ResponseEntity.noContent().build();
+    }
+    
 
-a
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+    @GetMapping("/summary")
+    public ResponseEntity<TransactionSummaryDto> getSummary(
+        @RequestParam(required = false) TransactionType type,
+        @RequestParam(required = false) String category,
+        @RequestParam(required= false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    return ResponseEntity.ok(transactionService.getSummary(type, category, startDate, endDate));
+        }
+    }
