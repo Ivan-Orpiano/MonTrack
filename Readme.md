@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📒 Budget Tracker
+# Budget Tracker
 
 **A little ledger app that lives in the cloud — literally. Your data sits in a Google Sheet you already own.**
 
@@ -15,13 +15,13 @@
 
 <img src="docs/demo.gif" alt="Budget Tracker dashboard preview" width="820">
 
-<sub><em>👆 A preview mockup of the actual UI/design system — swap in your own screen recording once you're running it locally (see <a href="#-quick-start">Quick Start</a>).</em></sub>
+<sub><em> A preview mockup of the actual UI/design system — swap in your own screen recording once you're running it locally (see <a href="#-quick-start">Quick Start</a>).</em></sub>
 
 </div>
 
 ---
 
-## ✨ Overview
+##  Overview
 
 Most "budget tracker" tutorials give you a to-do list with a dollar sign on it. This one
 tries to feel like an actual ledger: a serif headline, tabular numbers that line up in
@@ -32,19 +32,19 @@ Under the hood it's a proper three-tier app — **Angular talks only to Spring B
 Spring Boot talks only to Google Sheets.** No database server to provision, no ORM to
 configure — just a spreadsheet, a service account, and a clean REST API in between.
 
-## 🧩 Features
+##  Features
 
-- 💰 **Add, edit, delete** income & expense transactions
-- 🔍 **Filter** by type, category, and date range — on the list *and* the dashboard summary
-- 📊 **Live dashboard**: total income, total expenses, current balance, transaction count
-- ✅ **Validation on both ends** — reactive forms up front, Bean Validation on the API
-- 🧾 **Google Sheets as the database** — open the sheet any time and see your data, raw
-- 🧱 **Clean layered architecture** — controller → service → repository on the backend,
+-  **Add, edit, delete** income & expense transactions
+-  **Filter** by type, category, and date range — on the list *and* the dashboard summary
+-  **Live dashboard**: total income, total expenses, current balance, transaction count
+-  **Validation on both ends** — reactive forms up front, Bean Validation on the API
+-  **Google Sheets as the database** — open the sheet any time and see your data, raw
+-  **Clean layered architecture** — controller → service → repository on the backend,
   core/shared/features/models/services on the frontend
-- 🔔 **Toast notifications** for every success/error, driven by a single HTTP interceptor
-- 📱 **Responsive** — works from a phone as comfortably as a desktop
+-  **Toast notifications** for every success/error, driven by a single HTTP interceptor
+-  **Responsive** — works from a phone as comfortably as a desktop
 
-## 🛠️ Built with
+##  Built with
 
 | Layer | Technology |
 |---|---|
@@ -53,7 +53,7 @@ configure — just a spreadsheet, a service account, and a clean REST API in bet
 | **Database** | Google Sheets, via the Google Sheets API v4 + a service account |
 | **Styling** | Hand-written SCSS design system — no UI framework, no Tailwind |
 
-## 🏗️ How it fits together
+##  How it fits together
 
 ```
 ┌─────────────────────┐        HTTP / JSON        ┌──────────────────────┐        Sheets API        ┌───────────────────┐
@@ -70,7 +70,7 @@ backend is the sole owner of the service account key and all spreadsheet I/O.
 ## 📖 Full documentation
 
 <details>
-<summary><strong>🔐 Google Cloud & Google Sheets setup</strong></summary>
+<summary><strong> Google Cloud & Google Sheets setup</strong></summary>
 <br>
 
 The backend authenticates as a **service account** — the standard way for a server
@@ -88,7 +88,7 @@ The backend authenticates as a **service account** — the standard way for a se
 
 
 <details>
-<summary><strong>⚖️ Known trade-offs</strong></summary>
+<summary><strong> Known trade-offs</strong></summary>
 <br>
 
 Google Sheets is a lightweight, zero-infrastructure database, which comes with real
@@ -105,15 +105,15 @@ frontend layers needs to change.
 
 ---
 
-## 🗺️ Ideas for going further
+## Ideas for going further
 
-- 📈 Charts on the dashboard (spend by category, income vs. expense over time)
-- 🔁 Recurring transactions
-- 📤 CSV export
-- 💱 Multi-currency support
-- 🔐 Real user accounts (right now it's single-sheet, single-user by design)
+-  Charts on the dashboard (spend by category, income vs. expense over time)
+-  Recurring transactions
+-  CSV export
+-  Multi-currency support
+-  Real user accounts (right now it's single-sheet, single-user by design)
 
-## 🤝 Contributing
+##  Contributing
 
 Issues and PRs are welcome. If you're proposing something bigger than a bug fix,
 open an issue first so we can talk through the approach.
