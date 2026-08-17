@@ -9,5 +9,4 @@ class BudgetTrackerApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
