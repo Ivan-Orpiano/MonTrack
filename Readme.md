@@ -13,7 +13,7 @@
 
 <br/>
 
-<img src="docs/demo.gif" alt="Budget Tracker dashboard preview" width="820">
+<img src="budget-tracker/rd/demo.gif" alt="Budget Tracker dashboard preview" width="820">
 
 <sub><em> A preview mockup of the actual UI/design system — swap in your own screen recording once you're running it locally (see <a href="#-quick-start">Quick Start</a>).</em></sub>
 
