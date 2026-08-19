@@ -1,5 +1,29 @@
 package net.codejava.budget_tracker.config;
 
-public class CorsConfig {
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+/**
+ * Allows the Angular dev server (and any origins configured via
+ * {@code CORS_ALLOWED_ORIGINS}) to call the {@code /api/**} endpoints.
+ */
+
+
+@Configuration
+public class CorsConfig implements WebMvcConfigurer {
     
+    @Value("${cors.allowed-origins:http://localhost:4200}")
+    private String allowedOrigins;
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins(allowedOrigins.split("\\s*,\\s*"))
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
+    }
 }
