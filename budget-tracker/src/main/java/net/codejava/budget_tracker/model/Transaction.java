@@ -2,6 +2,7 @@ package net.codejava.budget_tracker.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Transaction {
     
@@ -75,12 +76,19 @@ public Transaction(String id, LocalDate date, TransactionType type, String categ
 
 
     @Override
-    public in hashCode(
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id='" + id + '\'' +
+                ", date=" + date +
+                ", type=" + type +
+                ", category='" + category + '\'' +
+                ", description='" + description + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }
