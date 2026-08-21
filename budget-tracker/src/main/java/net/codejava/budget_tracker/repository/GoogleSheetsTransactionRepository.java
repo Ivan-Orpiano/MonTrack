@@ -43,12 +43,36 @@ import java.util.Optional;
  */
 
 
-public class GoogleSheetsTransactionRepository {
+public class GoogleSheetsTransactionRepository implements TransactionRepository {
     
+    private static final List <Object> HEADER_ROW  = List.of("ID", "Date", "Type", "Category", "Description", "Amount");
+    private static final String HEADER_RANGE_TEMPLATE = "%s!A1:F1";
+    private static final String DATA_RANGE_TEMPLATE = "%s!A2:F";
+    private static final String APPEND_RANGE_TEMPLATE = "%s!A:F";
 
+    private final Sheets sheetsService;
 
+    @Value("${google.sheets.spreadsheet-id}")
+    private String spreadsheetId;
 
+    @Value("${google.sheets.sheet-name:Transactions}")
+    private String sheetName;
 
+    private Integer cachedSheetId;
 
-    
+    public GoogleSheetsTransactionRepository(Sheets sheetsService) {
+        this.sheetsService = sheetsService;
+    }
+
+        /** Ensures the header row exists once at startup, so writes don't need to check every time. */
+    @PostConstruct
+    public void init() {
+        try{
+            ensureHeaderExists();
+        } catch (IOException e) {
+            throw new GoogleSheetsException( 
+                 "Could not initialize the '" + sheetName + "' sheet. Check GOOGLE_SHEETS_SPREADSHEET_ID, " +
+                "GOOGLE_SHEETS_SHEET_NAME, and that the sheet is shared with the service account.", e);
+        }
+    }
 }
