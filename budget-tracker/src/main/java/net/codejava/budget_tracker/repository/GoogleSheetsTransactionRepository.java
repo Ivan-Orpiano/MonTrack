@@ -42,7 +42,7 @@ import java.util.Optional;
  * highly concurrent use (see README for this trade-off).</p>
  */
 
-
+@Repository
 public class GoogleSheetsTransactionRepository implements TransactionRepository {
     
     private static final List <Object> HEADER_ROW  = List.of("ID", "Date", "Type", "Category", "Description", "Amount");
@@ -75,4 +75,26 @@ public class GoogleSheetsTransactionRepository implements TransactionRepository 
                 "GOOGLE_SHEETS_SHEET_NAME, and that the sheet is shared with the service account.", e);
         }
     }
+    
+    @Override
+    public List <Transaction> findAll() {
+        List <List<Object>> rows - readAllRows();
+        List <Transaction> transactions = new ArrayList<>();
+        for (int i = 0; i < rows.size(); i++) {
+            Transaction transaction = rowToTransaction(rows.get(i), i+2);
+            if(transaction != null) {
+                transactions.add(transaction);
+            }
+        }
+
+
+
+
+    }
+
+
+
+
+
+
 }
