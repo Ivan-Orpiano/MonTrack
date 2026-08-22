@@ -43,7 +43,7 @@ import java.util.Optional;
  */
 
 @Repository
-public class GoogleSheetsTransactionRepository implements TransactionRepository {
+public class GoogleSheetsTransactionRepository extends TransactionRepository {
     
     private static final List <Object> HEADER_ROW  = List.of("ID", "Date", "Type", "Category", "Description", "Amount");
     private static final String HEADER_RANGE_TEMPLATE = "%s!A1:F1";
