@@ -91,4 +91,8 @@ public Transaction(String id, LocalDate date, TransactionType type, String categ
                 ", amount=" + amount +
                 '}';
     }
+
+    public Object getType() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
