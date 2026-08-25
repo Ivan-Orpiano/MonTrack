@@ -1,10 +1,16 @@
 package net.codejava.budget_tracker.repository;
 
 
-import net.codejava.budget_tracker.exception.GoogleSheetsException;
-import net.codejava.budget_tracker.exception.ResourceNotFoundException;
-import net.codejava.budget_tracker.model.Transaction;
-import net.codejava.budget_tracker.model.TransactionType;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
 import com.google.api.services.sheets.v4.model.DeleteDimensionRequest;
@@ -13,16 +19,12 @@ import com.google.api.services.sheets.v4.model.Request;
 import com.google.api.services.sheets.v4.model.Sheet;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import jakarta.annotation.PostConstruct;
+import net.codejava.budget_tracker.exception.GoogleSheetsException;
+import net.codejava.budget_tracker.exception.ResourceNotFoundException;
+import net.codejava.budget_tracker.model.Transaction;
+import net.codejava.budget_tracker.model.TransactionType;
 
 
 /**
@@ -207,7 +209,7 @@ public class GoogleSheetsTransactionRepository extends TransactionRepository {
         List<Object> row = new ArrayList<>();
         row.add(t.getId());
         row.add(t.getDate().toString());
-        row.add(t.getType().name());
+        row.add(((Enum<TransactionType>) t.getType()).name());
         row.add(t.getCategory());
         row.add(t.getDescription());
         row.add(t.getAmount().toPlainString());
