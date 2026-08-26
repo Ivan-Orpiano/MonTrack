@@ -1,0 +1,19 @@
+<header class="navbar">
+  <div class="navbar__inner">
+    <a class="navbar__brand" routerLink="/dashboard">
+      <span class="navbar__mark" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6" />
+          <path d="M5 6.5H13M5 9H10.5M5 11.5H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </span>
+      Budget Tracker
+    </a>
+
+    <nav class="navbar__links" aria-label="Primary">
+      <a routerLink="/dashboard" routerLinkActive="is-active">Dashboard</a>
+      <a routerLink="/transactions" routerLinkActive="is-active">Transactions</a>
+      <a routerLink="/transactions/new" class="navbar__cta">Add Transaction</a>
+    </nav>
+  </div>
+</header>
