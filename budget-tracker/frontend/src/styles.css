@@ -1,0 +1,415 @@
+/*
+  Design direction: a personal ledger, not a fintech dashboard cliché.
+  - Paper-sage background + deep pine ink, not the default cream/terracotta look.
+  - Fraunces (serif, a little character) for headings; Inter for body and data,
+    with tabular figures so amounts line up in columns like a real ledger.
+  - The signature element is the summary card: a filing-tab index card with a
+    thin coloured top edge that codes its meaning (income / expense / balance).
+*/
+
+:root {
+  /* Color */
+  --color-bg: #eef1ec;
+  --color-surface: #ffffff;
+  --color-ink: #1b2b22;
+  --color-muted: #5c6b60;
+  --color-border: #dbe1d8;
+
+  --color-primary: #1f5d50;
+  --color-primary-dark: #143f36;
+  --color-primary-tint: #e3ede9;
+
+  --color-income: #2e7d5b;
+  --color-income-tint: #e6f2ec;
+  --color-expense: #b3492e;
+  --color-expense-tint: #f7e9e4;
+  --color-accent: #c99a3d;
+  --color-accent-tint: #f7efdc;
+
+  /* Type */
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Shape & elevation */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --shadow-sm: 0 1px 2px rgba(27, 43, 34, 0.06);
+  --shadow-md: 0 8px 24px rgba(27, 43, 34, 0.08);
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+h1 {
+  font-size: 1.9rem;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input,
+select,
+button {
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+/* Visible focus ring everywhere, respecting keyboard-only users */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Layout                                                                  */
+/* ---------------------------------------------------------------------- */
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.page-subtitle {
+  color: var(--color-muted);
+  margin-top: 4px;
+}
+
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+}
+
+.panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.panel__header h2 {
+  margin: 0;
+}
+
+.state-text {
+  color: var(--color-muted);
+  padding: 24px 4px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Buttons                                                                 */
+/* ---------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-border);
+}
+
+.btn--ghost:hover {
+  background: rgba(27, 43, 34, 0.04);
+  text-decoration: none;
+}
+
+.btn--danger {
+  background: var(--color-expense);
+  color: #fff;
+}
+
+.btn--danger:hover {
+  background: #93381f;
+  text-decoration: none;
+}
+
+.btn--danger-outline {
+  background: transparent;
+  color: var(--color-expense);
+  border-color: var(--color-expense-tint);
+}
+
+.btn--danger-outline:hover {
+  background: var(--color-expense-tint);
+  text-decoration: none;
+}
+
+.btn--small {
+  padding: 6px 12px;
+  font-size: 0.82rem;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Summary grid (dashboard)                                                */
+/* ---------------------------------------------------------------------- */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 900px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Tables                                                                   */
+/* ---------------------------------------------------------------------- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  font-weight: 600;
+  padding: 0 10px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: rgba(31, 93, 80, 0.03);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-income {
+  color: var(--color-income);
+  font-weight: 600;
+}
+
+.text-expense {
+  color: var(--color-expense);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.badge--income {
+  background: var(--color-income-tint);
+  color: var(--color-income);
+}
+
+.badge--expense {
+  background: var(--color-expense-tint);
+  color: var(--color-expense);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Filter bar (transaction list)                                           */
+/* ---------------------------------------------------------------------- */
+
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filter-bar select,
+.filter-bar input {
+  padding: 9px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  min-width: 140px;
+}
+
+.filter-bar select:focus,
+.filter-bar input:focus {
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 640px) {
+  .filter-bar select,
+  .filter-bar input {
+    min-width: 0;
+    flex: 1 1 45%;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Forms                                                                    */
+/* ---------------------------------------------------------------------- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-ink);
+}
+
+.form-row input,
+.form-row select {
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  border-color: var(--color-primary);
+}
+
+.form-row input.is-invalid,
+.form-row select.is-invalid {
+  border-color: var(--color-expense);
+}
+
+.error-text {
+  color: var(--color-expense);
+  font-size: 0.82rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
