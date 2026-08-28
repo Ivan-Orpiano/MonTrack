@@ -1,0 +1,6 @@
+// Layout and card styling for the dashboard live in the shared global
+// stylesheet (.page-header, .summary-grid, .panel, .table) and in
+// SummaryCardComponent, so this file intentionally stays minimal.
+:host {
+  display: block;
+}
