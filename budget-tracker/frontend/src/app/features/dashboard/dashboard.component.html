@@ -1,0 +1,56 @@
+<section class="page-header">
+  <div>
+    <h1>Dashboard</h1>
+    <p class="page-subtitle">Your financial snapshot at a glance</p>
+  </div>
+  <a routerLink="/transactions/new" class="btn btn--primary">+ Add Transaction</a>
+</section>
+
+@if (loading()) {
+  <p class="state-text">Loading dashboard…</p>
+} @else if (summary(); as s) {
+  <div class="summary-grid">
+    <app-summary-card label="Total Income" [value]="s.totalIncome" variant="income"></app-summary-card>
+    <app-summary-card label="Total Expenses" [value]="s.totalExpense" variant="expense"></app-summary-card>
+    <app-summary-card label="Current Balance" [value]="s.balance" variant="balance"></app-summary-card>
+    <app-summary-card label="Transactions" [value]="s.transactionCount" variant="count" [isCurrency]="false"></app-summary-card>
+  </div>
+
+  <div class="panel">
+    <div class="panel__header">
+      <h2>Recent Transactions</h2>
+      <a routerLink="/transactions">View all →</a>
+    </div>
+
+    @if (recentTransactions().length === 0) {
+      <p class="state-text">No transactions yet. Add your first one to get started.</p>
+    } @else {
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th class="text-right">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (t of recentTransactions(); track t.id) {
+            <tr>
+              <td>{{ t.date | date: 'mediumDate' }}</td>
+              <td>
+                <span class="badge badge--{{ t.type === 'INCOME' ? 'income' : 'expense' }}">{{ t.type }}</span>
+              </td>
+              <td>{{ t.category }}</td>
+              <td>{{ t.description }}</td>
+              <td class="text-right" [class.text-income]="t.type === 'INCOME'" [class.text-expense]="t.type === 'EXPENSE'">
+                {{ t.type === 'EXPENSE' ? '-' : '+' }}{{ t.amount | currency }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+}
