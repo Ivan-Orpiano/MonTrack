@@ -16,7 +16,7 @@ export class ConfirmDialogComponent{
     @Output() confirmed = new EventEmitter<void>();
     @Output() cancelled = new EventEmitter<void>();
 
-    onCofirm(): void{
+    onConfirm(): void{
         this.confirmed.emit();
     }
 
