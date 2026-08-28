@@ -1,0 +1,12 @@
+@if (visible) {
+  <div class="dialog-backdrop" (click)="onCancel()">
+    <div class="dialog" role="alertdialog" aria-modal="true" [attr.aria-label]="title" (click)="$event.stopPropagation()">
+      <h3>{{ title }}</h3>
+      <p>{{ message }}</p>
+      <div class="dialog__actions">
+        <button type="button" class="btn btn--ghost" (click)="onCancel()">Cancel</button>
+        <button type="button" class="btn btn--danger" (click)="onConfirm()">{{ confirmLabel }}</button>
+      </div>
+    </div>
+  </div>
+}
