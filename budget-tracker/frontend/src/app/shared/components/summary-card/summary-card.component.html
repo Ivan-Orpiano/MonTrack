@@ -1,0 +1,10 @@
+<div class="summary-card summary-card--{{ variant }}">
+  <span class="summary-card__label">{{ label }}</span>
+  <span class="summary-card__value">
+    @if (isCurrency) {
+      {{ value | currency }}
+    } @else {
+      {{ value }}
+    }
+  </span>
+</div>
