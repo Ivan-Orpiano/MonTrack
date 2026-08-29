@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     recentTransactions = signal<Transaction []>([]);
     loading = signal(true);
 
-    constructor(private transactionService: TransactionSerive) { }
+    constructor(private transactionService: TransactionService) { }
 
     ngOnInit(): void {
         this.loadDashboard();
@@ -36,10 +36,13 @@ export class DashboardComponent implements OnInit {
         });
 
         this.transactionService.getTransactions().subscribe({
-            next:(transactions) => {
-                this.recentTransactions.set(transactions.slice(0, RECENT_TRANSACTIONS_LIMIT));
-                this.loading.set(false);
-            }, error () => this.loading.set(false)
+        next: (transactions) => {
+            this.recentTransactions.set(transactions.slice(0, RECENT_TRANSACTIONS_LIMIT));
+            this.loading.set(false);
+        },
+        error: () => {
+            this.loading.set(false);
+        }
         });
     }
 }

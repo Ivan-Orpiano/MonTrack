@@ -34,17 +34,4 @@ export class NotificationService {
         this.notifications.update((list) => [...list, {id,message, type}]);
         setTimeout(()=> this.dismiss(id), 4000);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
