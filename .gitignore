@@ -1,1 +1,12 @@
+target/
+*.class
 .env
+*.log
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Never commit real service account keys
+service-account-key.json
+*-credentials.json
