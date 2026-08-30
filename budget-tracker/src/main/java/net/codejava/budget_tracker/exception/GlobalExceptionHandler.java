@@ -1,8 +1,6 @@
 package net.codejava.budget_tracker.exception;
 
-
 import net.codejava.budget_tracker.dto.ApiErrorResponse;
-
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
