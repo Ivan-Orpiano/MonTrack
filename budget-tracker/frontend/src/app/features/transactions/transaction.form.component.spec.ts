@@ -11,10 +11,18 @@ describe('TransactionFormComponent', () => {
         await TestBed.configureTestingModule({
             imports: [TransactionFormComponent],
             providers: [
-                
+                provideHttpClient(),
+                provideHttpClientTesting(),
+                {
+                    provide: ActivatedRoute,
+                    useValue: {snapshot: { paramMap: convertToParamMap({})}}
+                }
             ]
-        })
+        }).compileComponents();
     })
 
+    fixture = TestBed.createComponent(TransactionFormComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+});
 
-})
