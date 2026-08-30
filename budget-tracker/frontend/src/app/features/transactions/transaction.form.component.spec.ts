@@ -8,7 +8,12 @@ describe('TransactionFormComponent', () => {
     let fixture: ComponentFixture<TransactionFormComponent>;
 
     beforeEach(async () => {
-        
+        await TestBed.configureTestingModule({
+            imports: [TransactionFormComponent],
+            providers: [
+                
+            ]
+        })
     })
 
 
