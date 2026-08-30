@@ -9,8 +9,8 @@ import { TransactionRequest, TransactionType } from '../../models/transaction.mo
   selector: 'app-transaction-form',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './transaction-form.component.html',
-  styleUrl: './transaction-form.component.scss'
+  templateUrl: './transaction.form.component.html',
+  styleUrl: './transaction.form.component.scss'
 })
 export class TransactionFormComponent implements OnInit {
   private fb = inject(FormBuilder);
