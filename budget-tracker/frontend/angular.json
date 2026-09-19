@@ -10,6 +10,7 @@
           "style": "scss",
           "standalone": true
         }
+        
       },
       "root": "",
       "sourceRoot": "src",
