@@ -14,8 +14,7 @@ public class Transaction {
     private BigDecimal amount;
 
 
-public Transaction() {
-}
+public Transaction() {}
 
 public Transaction(String id, LocalDate date, TransactionType type, String category, String description, BigDecimal amount) {
     this.id = id;
